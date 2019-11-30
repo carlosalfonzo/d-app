@@ -1,0 +1,28 @@
+{
+  "name": "TrustMe",
+  "version": "1.0.0",
+  "description": "D-App project Repo",
+  "main": "truffle-config.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "solidity-coverage": "^0.6.7",
+    "truffle-assertions": "^0.9.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/carlosalfonzo/d-app.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/carlosalfonzo/d-app/issues"
+  },
+  "homepage": "https://github.com/carlosalfonzo/d-app#readme"
+}
