@@ -1,0 +1,518 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for contracts/TrustMe.sol</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../prettify.css" />
+    <link rel="stylesheet" href="../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../index.html">all files</a> / <a href="index.html">contracts/</a> TrustMe.sol
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">17.86% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>5/28</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/14</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">16.67% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>2/12</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">15.63% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>5/32</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">pragma solidity ^0.5.0;
+&nbsp;
+contract TrustMe {
+  // TrustMe events
+  event newProject(string name, string description, uint stakeToSell, uint projectValuation, uint finishCriteria);
+  event investment(address investor, string projectName, uint amount, uint stakeBuyed);
+  event projectWithdraw(string name, uint balance);
+  // PROJECT STRUCTURE MODEL
+  struct Project {
+    string name;
+    string description;
+    uint stakeToSell;
+    uint availableStake;
+    uint projectValuation;
+    uint finishCriteria;
+    bool availableToInvest;
+    bool validProject;
+  }
+  // projects storage
+  mapping(address =&gt; Project[]) private projects; //projects storage
+  mapping(address =&gt; uint[]) private projectsBalances; //project balances
+  address[] private projectsIndexes; //projects order by address
+  // ask only for investor
+<span class="fstat-no" title="function not covered" >  modifier onlyInvestor(uint projectAddressIndex) </span>{
+<span class="cstat-no" title="statement not covered" >    require(</span>
+      msg.sender != projectsIndexes[projectAddressIndex],
+      "The investor can't be the same person who published the project"
+    );
+    _;
+  }
+  // ask if the project is available to invest
+<span class="fstat-no" title="function not covered" >  modifier availableToBuy(uint projectAddressIndex,uint projectIndex)</span>{
+<span class="cstat-no" title="statement not covered" >    require(</span>
+      projects[projectsIndexes[projectAddressIndex]][projectIndex].availableToInvest,
+      "This project is stopped by his owner"
+    );
+<span class="cstat-no" title="statement not covered" >    require(</span>
+      projects[projectsIndexes[projectAddressIndex]][projectIndex].availableStake &lt;= msg.value,
+      "You can't buy a higher value than available"
+    );
+    _;
+  }
+  // ask if the project has founds
+<span class="fstat-no" title="function not covered" >  modifier withFounds(uint projectIndex) </span>{
+<span class="cstat-no" title="statement not covered" >    require(projectsBalances[msg.sender][projectIndex] != 0, 'You have no founds in that project')</span>;
+    _;
+  }
+  // ask if msg address has project
+<span class="fstat-no" title="function not covered" >  modifier entrepeurWithProjects(uint projectIndex) </span>{
+<span class="cstat-no" title="statement not covered" >    require(projects[msg.sender][projectIndex].validProject,'This Project does not exist')</span>;
+    _;
+  }
+  // adding a new project
+  function addProject (
+    string memory name,
+    string memory description,
+    uint stakeToSell,
+    uint projectValuation,
+    uint finishCriteria
+  ) public {
+    projects[msg.sender].push(
+      Project({
+        name: name,
+        description: description,
+        stakeToSell: stakeToSell,
+        availableStake: stakeToSell,
+        projectValuation: projectValuation,
+        finishCriteria: finishCriteria,
+        availableToInvest: true,
+        validProject: true
+      })
+    );
+    projectsBalances[msg.sender].push(0);
+    projectsIndexes.push(msg.sender);
+    emit newProject(name, description, stakeToSell, projectValuation, finishCriteria);
+  }
+  // get all projects count
+  function getProjectsCount() public view returns (uint){
+    return projectsIndexes.length;
+  }
+  // get all address projects count
+<span class="fstat-no" title="function not covered" >  function getAddressProjectsCount (</span>
+    uint projectIndex
+  ) public view returns (
+    uint addressProjectsLength
+  ) {
+<span class="cstat-no" title="statement not covered" >    return projects[projectsIndexes[projectIndex]].length;</span>
+  }
+  // get specific project
+<span class="fstat-no" title="function not covered" >  function getProject (</span>
+    uint projectAddressIndex,
+    uint projectIndex
+  ) public view returns (
+    string memory name,
+    string memory description,
+    uint stakeToSell,
+    uint availableStake,
+    uint projectValuation,
+    uint finishCriteria
+  ) {
+<span class="cstat-no" title="statement not covered" >    return (</span>
+      projects[projectsIndexes[projectAddressIndex]][projectIndex].name,
+      projects[projectsIndexes[projectAddressIndex]][projectIndex].description,
+      projects[projectsIndexes[projectAddressIndex]][projectIndex].stakeToSell,
+      projects[projectsIndexes[projectAddressIndex]][projectIndex].availableStake,
+      projects[projectsIndexes[projectAddressIndex]][projectIndex].projectValuation,
+      projects[projectsIndexes[projectAddressIndex]][projectIndex].finishCriteria
+    );
+  }
+  // get project balance
+<span class="fstat-no" title="function not covered" >  function getProjectBalance(</span>
+    uint projectIndex
+  ) public entrepeurWithProjects(projectIndex) view returns (uint balance) {
+<span class="cstat-no" title="statement not covered" >    return projectsBalances[msg.sender][projectIndex];</span>
+  }
+  // invest in project
+<span class="fstat-no" title="function not covered" >  function investInProject(</span>
+    uint projectAddressIndex,
+    uint projectIndex,
+    uint projectStakeVal
+  ) public onlyInvestor(projectAddressIndex) availableToBuy(projectAddressIndex,projectIndex) payable returns (string memory message) {
+<span class="cstat-no" title="statement not covered" >    projects[projectsIndexes[projectAddressIndex]][projectIndex].availableStake -= projectStakeVal</span>;
+<span class="cstat-no" title="statement not covered" >    projectsBalances[projectsIndexes[projectAddressIndex]][projectIndex] += msg.value</span>;
+<span class="cstat-no" title="statement not covered" >    emit investment(msg.sender, projects[projectsIndexes[projectAddressIndex]][projectIndex].name, msg.value, projectStakeVal);</span>
+<span class="cstat-no" title="statement not covered" >    return string(abi.encodePacked('You successfully invest in project: ',projects[projectsIndexes[projectAddressIndex]][projectIndex].name));</span>
+  }
+  // stop project investment round
+<span class="fstat-no" title="function not covered" >  function stopProjectInvestmentRound(</span>
+    uint projectIndex
+  ) public entrepeurWithProjects(projectIndex) returns (string memory message, bool success) {
+<span class="cstat-no" title="statement not covered" >    Project memory projectToPause = projects[msg.sender][projectIndex];</span>
+<span class="cstat-no" title="statement not covered" >    if (projectsBalances[msg.sender][projectIndex] &gt;= ((projectToPause.stakeToSell * projectToPause.finishCriteria) / 100)) {</span>
+<span class="cstat-no" title="statement not covered" >      if (projects[msg.sender][projectIndex].availableToInvest) {</span>
+<span class="cstat-no" title="statement not covered" >        projects[msg.sender][projectIndex].availableToInvest = false</span>;
+<span class="cstat-no" title="statement not covered" >        return ('Project successfully Stopped', true);</span>
+      } else {
+<span class="cstat-no" title="statement not covered" >        return ('Project already Stopped', false);</span>
+      }
+    } else {
+<span class="cstat-no" title="statement not covered" >      return ('The project does not accomplish the finish criteria', false);</span>
+    }
+  }
+  // withdraw project balance
+<span class="fstat-no" title="function not covered" >  function withdrawProjectBalance(</span>
+    uint projectIndex
+  ) public withFounds(projectIndex) payable returns(string memory messsage){
+<span class="cstat-no" title="statement not covered" >    msg.sender.transfer(projectsBalances[msg.sender][projectIndex])</span>;
+<span class="cstat-no" title="statement not covered" >    emit projectWithdraw(projects[msg.sender][projectIndex].name, projectsBalances[msg.sender][projectIndex]);</span>
+<span class="cstat-no" title="statement not covered" >    projectsBalances[msg.sender][projectIndex] = 0</span>;
+<span class="cstat-no" title="statement not covered" >    return ('Successfully withdraw your balance for this project');</span>
+  }
+}</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sat Nov 30 2019 14:46:27 GMT-0400 (GMT-04:00)
+</div>
+</div>
+<script src="../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../sorter.js"></script>
+</body>
+</html>
