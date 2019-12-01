@@ -1,6 +1,8 @@
 import React, { Component, Fragment } from 'react';
 import getWeb3 from "../getWeb3";
 import TrustMe from "../contracts/TrustMe.json";
+import ConnectToMetamaskView from './ConnectToMetamask';
+import Header from './Header';
 
 let push = null;
 export const pushHistory = (route, state) => {
@@ -8,10 +10,15 @@ export const pushHistory = (route, state) => {
     push(route, state);
   }
 }
+
 export default class Root extends Component {
   constructor(props) {
     super(props);
     push = props.history.push;
+  }
+
+  componentDidMount() {
+    this.connectWeb3();
   }
 
   async connectWeb3() {
@@ -20,32 +27,27 @@ export default class Root extends Component {
       const accounts = await web3.eth.getAccounts(); // Use web3 to get the user's accounts.
       const networkId = await web3.eth.net.getId(); // Get the contract instance.
       const deployedNetwork = TrustMe.networks[networkId];
-      const instance = new web3.eth.Contract(
+      const TrustMeContractInstance = new web3.eth.Contract(
         TrustMe.abi,
-        deployedNetwork && deployedNetwork.address,
+        deployedNetwork && deployedNetwork.address
       );
-      this.props.setWeb3(accounts);
+      this.props.setWeb3(accounts, TrustMeContractInstance);
     } catch (error) {
       this.props.web3Error(error);
     }
   }
 
-  componentDidMount() {
-    this.connectWeb3();
-  }
-
   render() {
     const { children, web3 } = this.props;
     if (!web3) {
-      return (
-        <div>
-          you have to connect web3
-        </div>
-      )
+      return <ConnectToMetamaskView />
     }
     return (
       <Fragment>
-        {children}
+        <Header />
+        <div className='body-content-wrapper full-width max-width'>
+          {children}
+        </div>
       </Fragment>
     );
   }

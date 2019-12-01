@@ -1,0 +1,21 @@
+.not-found-wrapper {
+    padding: 10px;
+    height: 80vh;
+    align-content: center;
+}
+
+.we-sorry {
+    text-align: center;
+    padding-bottom: 20px;
+    font-size: 1.5em;
+}
+
+.logo-container {
+    justify-content: center;
+}
+
+.message-404 {
+    padding-top: 20px;
+    text-align: center;
+    font-size: 2em;
+}

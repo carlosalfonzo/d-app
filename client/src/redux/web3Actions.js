@@ -3,10 +3,13 @@ export const WEB3_CONNECT = 'WEB3_CONNECT';
 export const WEB3_CONNECT_ERROR = 'WEB3_CONNECT_ERROR';
 
 // actions creators
-export const setWeb3 = (accounts) => {
+export const setWeb3 = (accounts, smartContractInstance) => {
   return {
     type: WEB3_CONNECT,
-    meta: accounts
+    meta: {
+      accounts: accounts,
+      smartContractInstance: smartContractInstance
+    }
   }
 }
 export const web3Error = (error) => {
@@ -15,3 +18,5 @@ export const web3Error = (error) => {
     meta: error
   }
 }
+// await contract.methods.set(5).send({ from: accounts[0] });
+// const response = await contract.methods.get().call();

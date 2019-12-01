@@ -1,0 +1,32 @@
+.header-container {
+    padding: 20px;
+}
+
+.header-container .header-logo-container img {
+    display: block;
+    width: 80%;
+    max-width: 150px;
+    object-fit: contain;
+}
+
+.header-container .links-container a:first-of-type {
+    padding-right: 30px;
+}
+
+@media(min-width:1200px) {
+    .header-container {
+        padding: 20px 0;
+    }
+}
+
+@media(max-width:550px) {
+    .header-container .header-logo-container {
+        width: 100%;
+        justify-content: center;
+        padding-bottom: 10px
+    }
+    .header-container .links-container {
+        width: 100%;
+        justify-content: center;
+    }
+}

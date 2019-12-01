@@ -1,6 +1,6 @@
 import React, { Fragment, lazy } from 'react';
-// const Error404 = lazy(() => import('../components/Error404'));
-const Home = lazy(() => import('../components/Home'));
+const Error404 = lazy(() => import('../components/Error404'));
+const Home = lazy(() => import('../containers/HomeContainer'));
 
 export const allRoutes = [
   {
@@ -8,5 +8,9 @@ export const allRoutes = [
     path: '/',
     component: Home,
     key: 'Home',
+  },
+  {
+    component: Error404,
+    key: 'Error404',
   }
 ];

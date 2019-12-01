@@ -3,6 +3,7 @@ import { WEB3_CONNECT, WEB3_CONNECT_ERROR } from './web3Actions';
 const initialState = {
   web3: false,
   accounts: [],
+  trustMeInstance: null,
   error: null
 };
 
@@ -12,7 +13,8 @@ export default function responsiveReducer(state = initialState, action) {
       return {
         ...state,
         web3: true,
-        accounts: action.meta
+        accounts: action.meta.accounts,
+        trustMeInstance: action.meta.smartContractInstance
       }
     case WEB3_CONNECT_ERROR:
       return {

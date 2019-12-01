@@ -1,13 +1,210 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@font-face {
+    font-family: Yantramanav;
+    font-weight: normal;
+    font-style: normal;
+    src: url('./assets/fonts/Yantramanav-Regular.ttf') format('truetype');
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+@font-face {
+    font-family: Yantramanav-Bold;
+    font-weight: normal;
+    font-style: normal;
+    src: url('./assets/fonts/Yantramanav-Bold.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: Yantramanav-Light;
+    font-weight: normal;
+    font-style: normal;
+    src: url('./assets/fonts/Yantramanav-Light.ttf') format('truetype');
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    border: 0;
+    height: auto;
+    width: auto;
+    font-size: 12px;
+    font: inherit;
+    vertical-align: baseline;
+    font-weight: 100;
+    box-sizing: border-box;
+    font-family: Yantramanav;
+    scroll-behavior: smooth;
+    scrollbar-color: #b6b5b5 rgba(0, 0, 0, 0);
+    scrollbar-width: thin;
+    color: black;
+    color: inherit;
+}
+
+*::-webkit-scrollbar {
+    width: 5px;
+}
+
+*::-webkit-scrollbar-track {
+    display: none;
+}
+
+*::-webkit-scrollbar-thumb {
+    background: #e0e0e0;
+    border-radius: 5px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+    background: #a0a0a0;
+}
+
+*:link {
+    color: inherit;
+    text-decoration: none;
+}
+
+*:active {
+    border: none;
+    outline: none;
+}
+
+*:focus {
+    outline: none;
+    border: none;
+}
+
+ol,
+ul {
+    list-style: none;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+html {
+    scrollbar-color: #b6b5b5 rgb(245, 245, 245);
+    height: 100%;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    min-height: 100vh;
+    background: var(--third-color);
+}
+
+#root {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+:root {
+    --main-color: #5F3B7B;
+    --secundary-color: #161615;
+    --third-color: #ffffff;
+    --five-color: #606060;
+}
+
+.body-content-wrapper {
+    padding: 10px 0 30px 0;
+}
+
+@media(max-width:1200px) {
+    .body-content-wrapper {
+        padding: 10px 20px 30px 20px;
+    }
+}
+
+
+/* utils */
+
+.main-background {
+    background: var(--main-color);
+}
+
+.secundary-background {
+    background: var(--secundary-color);
+}
+
+.third-background {
+    background: var(--third-color);
+}
+
+.five-background {
+    background: var(--five-color);
+}
+
+.main-color {
+    color: var(--main-color);
+}
+
+.secundary-color {
+    color: var(--secundary-color);
+}
+
+.third-color {
+    color: var(--third-color);
+}
+
+.five-color {
+    color: var(--five-color);
+}
+
+.flex {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+.max-width {
+    max-width: 1200px;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.flex-between {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+.flex-center {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+.flex-center.wrap,
+.flex.wrap,
+.flex-between.wrap,
+.wrap {
+    flex-wrap: wrap;
+}
+
+.bold {
+    font-family: Yantramanav-Bold;
+}
+
+.light {
+    font-family: Yantramanav-Light;
+}
+
+.overflow-ellipsis {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
