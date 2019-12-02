@@ -15,10 +15,25 @@ export default class Root extends Component {
   constructor(props) {
     super(props);
     push = props.history.push;
+    this.connectWeb3 = this.connectWeb3.bind(this);
   }
 
   componentDidMount() {
-    this.connectWeb3();
+    this.props.setWeb3(this.connectWeb3());
+  }
+
+  async createProjects(projectsCount, contract, accounts) {
+    for (let i = 0; i < projectsCount; i++) {
+      let project = await contract.methods.addProject(
+        `My project ${i}`,
+        'my project description',
+        10,
+        1000,
+        50
+      ).send({
+        from: accounts[0]
+      });
+    }
   }
 
   async connectWeb3() {
@@ -27,28 +42,30 @@ export default class Root extends Component {
       const accounts = await web3.eth.getAccounts(); // Use web3 to get the user's accounts.
       const networkId = await web3.eth.net.getId(); // Get the contract instance.
       const deployedNetwork = TrustMe.networks[networkId];
-      const TrustMeContractInstance = new web3.eth.Contract(
+      const trustMeContractInstance = new web3.eth.Contract(
         TrustMe.abi,
         deployedNetwork && deployedNetwork.address
       );
-      this.props.setWeb3(accounts, TrustMeContractInstance);
+      // this.createProjects(1, trustMeContractInstance, accounts);
+      return { accounts, trustMeContractInstance };
     } catch (error) {
-      this.props.web3Error(error);
+      return error;
     }
   }
 
   render() {
     const { children, web3 } = this.props;
     if (!web3) {
-      return <ConnectToMetamaskView />
+      return <ConnectToMetamaskView />;
+    } else {
+      return (
+        <Fragment>
+          <Header />
+          <div className='body-content-wrapper full-width max-width'>
+            {children}
+          </div>
+        </Fragment>
+      );
     }
-    return (
-      <Fragment>
-        <Header />
-        <div className='body-content-wrapper full-width max-width'>
-          {children}
-        </div>
-      </Fragment>
-    );
   }
 }

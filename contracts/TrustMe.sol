@@ -57,7 +57,9 @@ contract TrustMe {
     uint stakeToSell,
     uint projectValuation,
     uint finishCriteria
-  ) public {
+  ) public returns(
+    string memory message
+  ){
     projects[msg.sender].push(
       Project({
         name: name,
@@ -73,6 +75,7 @@ contract TrustMe {
     projectsBalances[msg.sender].push(0);
     projectsIndexes.push(msg.sender);
     emit newProject(name, description, stakeToSell, projectValuation, finishCriteria);
+    return("Successfully Added Project");
   }
   // get all projects count
   function getProjectsCount() public view returns (uint){

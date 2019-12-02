@@ -1,13 +1,21 @@
 import { connect } from 'react-redux';
-import Home from '../components/Home';
 import { withRouter } from 'react-router-dom';
+import Home from '../components/Home';
+import {
+  getProjectsCount
+} from '../redux/projectsActions';
 
 export default withRouter(
   connect(
     state => {
       return {
-        web3: state.web3Reducer.web3
+        contract: state.web3Reducer.trustMeInstance,
+        accounts: state.web3Reducer.accounts,
+        projectsCount: state.projectsReducer.projectsCount
       }
+    },
+    {
+      getProjectsCount
     }
   )(Home)
 );

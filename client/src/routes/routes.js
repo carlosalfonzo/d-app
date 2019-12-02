@@ -1,13 +1,20 @@
-import React, { Fragment, lazy } from 'react';
-const Error404 = lazy(() => import('../components/Error404'));
-const Home = lazy(() => import('../containers/HomeContainer'));
+import React from 'react';
+import Error404 from '../components/Error404';
+import HomeContainer from '../containers/HomeContainer';
+import ProjectViewContainer from '../containers/ProjectViewContainer';
 
 export const allRoutes = [
   {
     exact: true,
     path: '/',
-    component: Home,
-    key: 'Home',
+    component: HomeContainer,
+    key: 'HomeContainer',
+  },
+  {
+    exact: true,
+    path: '/project/:id',
+    component: ProjectViewContainer,
+    key: 'ProjectViewContainer',
   },
   {
     component: Error404,

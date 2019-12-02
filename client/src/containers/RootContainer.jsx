@@ -1,18 +1,19 @@
 import { connect } from 'react-redux';
 import Root from '../components/Root';
 import { withRouter } from 'react-router-dom';
-import { setWeb3, web3Error } from '../redux/web3Actions';
+import { setWeb3 } from '../redux/web3Actions';
 
 export default withRouter(
   connect(
     state => {
       return {
         web3: state.web3Reducer.web3,
+        contract: state.web3Reducer.trustMeInstance,
+        accounts: state.web3Reducer.accounts
       }
     },
     {
-      setWeb3,
-      web3Error
+      setWeb3
     }
   )(Root)
 );

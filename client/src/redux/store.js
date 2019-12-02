@@ -6,6 +6,7 @@ import { createPromise } from 'redux-promise-middleware';
 import reduxImmutableStateInvariant from 'redux-immutable-state-invariant';
 // REDUCERS
 import web3Reducer from './web3Reducer';
+import projectsReducer from './projectsReducer';
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
 
 function configureStore() {
@@ -26,15 +27,10 @@ function configureStore() {
 function appCombineReducer() {
   return (
     combineReducers({
+      projectsReducer,
       web3Reducer
     })
   );
-}
-
-export const actions_suffix = {
-  START: '_START',
-  SUCCESS: '_SUCCESS',
-  ERROR: '_ERROR'
 }
 
 export default configureStore;
