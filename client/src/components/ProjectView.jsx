@@ -1,0 +1,138 @@
+
+import React, { Fragment } from 'react';
+import './css/ProjectView.css';
+import Loader from './Loader';
+import InvestToProjectPanel from '../containers/InvestToProjectPanelContainer';
+import RaisedProgressBar from './RaisedProgressBar';
+import { getProjectGoal, changeDocumentTitle } from '../globals/utils';
+
+export default class ProjectView extends React.Component {
+  state = {
+    showInvestment: true
+  }
+
+  componentDidMount() {
+    const { contract,
+      address,
+      project,
+      match: { params: { id } },
+      getProject
+    } = this.props;
+    if (!project) {
+      return getProject(contract, address, id);
+    }
+    this.setPageTitle();
+  }
+
+  setPageTitle() {
+    const { project: { name } } = this.props;
+    changeDocumentTitle(name);
+  }
+
+  componentDidUpdate({ project }) {
+    if (!project && this.props.project) {
+      this.setPageTitle();
+    }
+  }
+
+  renderGallery() {
+    return (
+      <div className='project-gallery-container flex-between wrap'>
+        <div className='gallery-image-container flex'>
+          <img src="https://picsum.photos/id/667/400/300" alt="foo" />
+        </div>
+        <div className='gallery-image-container flex'>
+          <img src="https://picsum.photos/id/667/400/300" alt="foo" />
+        </div>
+        <div className='gallery-image-container flex'>
+          <img src="https://picsum.photos/id/667/400/300" alt="foo" />
+        </div>
+        <div className='gallery-image-container flex'>
+          <img src="https://picsum.photos/id/667/400/300" alt="foo" />
+        </div>
+      </div>
+    )
+  }
+
+  showInvestmentPanel = () => {
+    this.setState({ showInvestment: !this.state.showInvestment });
+  }
+
+  showProjectStakeInformation() {
+    const {
+      match: { params: { id } },
+      project
+    } = this.props;
+    const { showInvestment } = this.state;
+    return (
+      <div className='project-view-right-column-container flex wrap'>
+        <div className='project-view-right-column flex wrap third-background'>
+          <span className='goal-section full-width flex'>
+            <span className='goal flex'>
+              <p className='label light five-color'>Goal:</p>
+              <p className='val main-color bold'>{getProjectGoal(project.projectValuation, project.finishCriteria)}</p>
+            </span>
+            <p className='rest-info five-color light'>{`${project.finishCriteria}% / company value`}</p>
+          </span>
+          <RaisedProgressBar
+            valuation={project.projectValuation}
+            criteria={project.finishCriteria}
+            balance={project.projectBalance}
+          />
+          <span className='full-width flex raised'>
+            <p className='main-color light'>Raised:</p>
+            <p className='total-raised five-color light'>{project.projectBalance}</p>
+          </span>
+          <p className='info-title main-color full-width'>INFORMATION</p>
+          <span className='company-info-container flex full-width'>
+            <p className='label five-color light'>Company Value:</p>
+            <p className='main-color'>{project.projectValuation}</p>
+          </span>
+          <span className='company-info-container flex full-width'>
+            <p className='label five-color light'>Stake To Sell:</p>
+            <p className='main-color'>{`${project.stakeToSell}%`}</p>
+          </span>
+          <span className='company-info-container flex full-width'>
+            <p className='label five-color light'>Finish Criteria:</p>
+            <p className='main-color'>{`${project.finishCriteria}%`}</p>
+          </span>
+          <div className='button-container full-width flex'>
+            <button onClick={this.showInvestmentPanel} className='main-background third-color primary-button light'>INVEST</button>
+          </div>
+        </div>
+        {
+          showInvestment && <InvestToProjectPanel projectIndex={id} />
+        }
+      </div>
+    )
+  }
+
+  renderProjectView() {
+    const { project } = this.props;
+    return (
+      <div className='project-view-wrapper flex-between wrap'>
+        <div className='project-view-left-column flex wrap'>
+          <div className='header-image full-width flex'>
+            <img src="https://picsum.photos/id/667/400/300" alt="foo" className='full-width' />
+          </div>
+          <div className='project-content-container full-width flex-between wrap third-background'>
+            <div className='project-information-content'>
+              <p className='title main-color bold full-width'>{project.name}</p>
+              <p className='description five-color full-width overflow-ellipsis'>{project.description}</p>
+            </div>
+            {this.renderGallery()}
+          </div>
+        </div>
+        {this.showProjectStakeInformation()}
+      </div>
+    )
+  }
+
+  render() {
+    const { loading } = this.props;
+    if (loading) {
+      return <Loader />;
+    }
+    return this.renderProjectView();
+  }
+}

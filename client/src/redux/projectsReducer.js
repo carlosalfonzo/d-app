@@ -1,6 +1,7 @@
 import {
   PROJECTS_COUNT,
-  GET_PROJECT
+  GET_PROJECT,
+  INVEST_IN_PROJECT
 } from './projectsActions';
 import { actions_suffix } from '../globals/configs';
 const {
@@ -42,12 +43,13 @@ export default function projectsReducer(state = initialState, action) {
       return {
         ...state,
         loading: false,
-        projectsCount: action.payload
+        projectsCount: parseInt(action.payload)
       }
     case GET_PROJECT + START:
       return {
         ...state,
         projectsLoader: {
+          ...state.projectsLoader,
           [action.meta]: true
         }
       }
@@ -55,6 +57,7 @@ export default function projectsReducer(state = initialState, action) {
       return {
         ...state,
         projectsLoader: {
+          ...state.projectsLoader,
           [action.meta]: false
         },
         error: action.payload
@@ -64,11 +67,40 @@ export default function projectsReducer(state = initialState, action) {
         ...state,
         loading: false,
         projectsLoader: {
+          ...state.projectsLoader,
           [action.meta]: false
         },
         projects: {
           ...state.projects,
           [action.meta]: parseNewProject(action.payload)
+        }
+      }
+    case INVEST_IN_PROJECT + START:
+      return {
+        ...state,
+        projectsLoader: {
+          ...state.projectsLoader,
+          [action.meta]: true
+        }
+      }
+    case INVEST_IN_PROJECT + ERROR:
+      console.log(action.payload)
+      return {
+        ...state,
+        projectsLoader: {
+          ...state.projectsLoader,
+          [action.meta]: false
+        },
+        error: action.payload
+      }
+    case INVEST_IN_PROJECT + SUCCESS:
+      console.log(action.payload)
+      return {
+        ...state,
+        loading: false,
+        projectsLoader: {
+          ...state.projectsLoader,
+          [action.meta]: false
         }
       }
     default:

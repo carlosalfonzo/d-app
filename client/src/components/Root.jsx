@@ -46,7 +46,8 @@ export default class Root extends Component {
         TrustMe.abi,
         deployedNetwork && deployedNetwork.address
       );
-      // this.createProjects(1, trustMeContractInstance, accounts);
+      window.ethereum.on('accountsChanged', this.props.changeAccount);
+      // await this.createProjects(2, trustMeContractInstance, accounts);
       return { accounts, trustMeContractInstance };
     } catch (error) {
       return error;

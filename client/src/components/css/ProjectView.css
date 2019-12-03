@@ -1,0 +1,147 @@
+.project-view-wrapper {
+    align-items: flex-start;
+}
+
+.header-image {
+    height: 300px;
+}
+
+.project-content-container {
+    align-items: flex-start;
+}
+
+.project-content-container {
+    padding: 30px 25px 15px 25px;
+}
+
+.project-information-content {
+    width: 53%;
+}
+
+.project-information-content .description {
+    text-align: justify;
+}
+
+.project-information-content .title {
+    font-size: 1.5em;
+    padding-bottom: 15px;
+}
+
+.project-gallery-container {
+    width: 45%;
+}
+
+.info-title {
+    font-size: 1.5em;
+    padding: 5px 0;
+}
+
+.goal-section {
+    align-items: center;
+}
+
+.goal-section .goal {
+    align-items: flex-end;
+}
+
+.goal-section .rest-info {
+    padding-left: 10px;
+    font-size: .8em;
+    align-self: flex-end;
+}
+
+.raised .total-raised {
+    padding-left: 5px;
+}
+
+.raised p {
+    font-size: .8em;
+}
+
+.raised {
+    padding-top: 5px;
+    padding-bottom: 10px;
+}
+
+.goal-section .goal .label {
+    font-size: 1.5em;
+    padding-right: 5px;
+}
+
+.goal-section .goal .val {
+    font-size: 2em;
+    line-height: 1;
+}
+
+.company-info-container {
+    padding-bottom: 5px;
+}
+
+.company-info-container .label {
+    padding-right: 8px;
+}
+
+.project-gallery-container .gallery-image-container {
+    width: 48%;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: calc(100% - (48% * 2));
+}
+
+.project-view-left-column,
+.project-view-right-column {
+    border: 1px solid #DDDDDD;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.project-view-left-column {
+    width: 68%;
+}
+
+.project-view-right-column-container {
+    width: 28%;
+}
+
+.project-view-right-column {
+    padding: 20px;
+}
+
+.button-container {
+    justify-content: flex-end;
+    padding-top: 20px;
+    border-top: 1px solid #DDDDDD;
+    margin-top: 15px;
+}
+
+@media(max-width:950px) {
+    .project-view-wrapper {
+        justify-content: flex-end;
+    }
+    .project-view-right-column-container {
+        justify-content: space-between;
+        align-items: flex-start;
+        align-content: flex-start;
+    }
+    .project-view-left-column,
+    .project-view-right-column-container {
+        width: 100%;
+    }
+    .project-view-right-column {
+        width: 49%;
+    }
+    .project-view-left-column {
+        margin-bottom: 30px;
+    }
+}
+
+@media(max-width:600px) {
+    .project-information-content {
+        width: 100%;
+        padding-bottom: 20px;
+    }
+    .project-view-right-column,
+    .project-gallery-container {
+        width: 100%;
+    }
+}

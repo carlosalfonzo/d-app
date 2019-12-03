@@ -2,6 +2,7 @@ import React from 'react';
 import Error404 from '../components/Error404';
 import HomeContainer from '../containers/HomeContainer';
 import ProjectViewContainer from '../containers/ProjectViewContainer';
+import NewProjectContainer from '../containers/NewProjectContainer';
 
 export const allRoutes = [
   {
@@ -15,6 +16,12 @@ export const allRoutes = [
     path: '/project/:id',
     component: ProjectViewContainer,
     key: 'ProjectViewContainer',
+  },
+  {
+    exact: true,
+    path: '/new-project',
+    component: NewProjectContainer,
+    key: 'NewProjectContainer',
   },
   {
     component: Error404,

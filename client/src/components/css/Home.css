@@ -5,8 +5,10 @@
 .projects-list-container .project-card {
     border-radius: 15px;
     overflow: hidden;
-    width: 33%;
+    width: 32%;
     border: 1px solid #DDDDDD;
+    margin-right: 1%;
+    margin-bottom: 1%;
 }
 
 .project-card .see-more {

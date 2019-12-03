@@ -14,41 +14,51 @@ contract TrustMe {
     uint projectValuation;
     uint finishCriteria;
     bool availableToInvest;
+    address payable ownerAddress;
+    uint balance;
     bool validProject;
   }
-  // projects storage
-  mapping(address => Project[]) private projects; //projects storage
-  mapping(address => uint[]) private projectsBalances; //project balances
-  address[] private projectsIndexes; //projects order by address
+  mapping(address => uint[]) private projects; //projects storage
+  Project[] private projectsStorage; //projects order by address
   // ask only for investor
-  modifier onlyInvestor(uint projectAddressIndex) {
+  modifier onlyInvestor(uint projectIndex) {
     require(
-      msg.sender != projectsIndexes[projectAddressIndex],
+      !contains(projectIndex,projects[msg.sender]),
       "The investor can't be the same person who published the project"
     );
     _;
   }
   // ask if the project is available to invest
-  modifier availableToBuy(uint projectAddressIndex,uint projectIndex){
+  modifier availableToBuy(uint projectIndex){
     require(
-      projects[projectsIndexes[projectAddressIndex]][projectIndex].availableToInvest,
+      projectsStorage[projectIndex].availableToInvest,
       "This project is stopped by his owner"
     );
     require(
-      projects[projectsIndexes[projectAddressIndex]][projectIndex].availableStake <= msg.value,
+      projectsStorage[projectIndex].availableStake <= msg.value,
       "You can't buy a higher value than available"
     );
     _;
   }
   // ask if the project has founds
-  modifier withFounds(uint projectIndex) {
-    require(projectsBalances[msg.sender][projectIndex] != 0, 'You have no founds in that project');
+  modifier withFounds(uint projectIndex){
+    require(projectsStorage[projectIndex].balance != 0, 'You have no founds in that project');
     _;
   }
   // ask if msg address has project
-  modifier entrepeurWithProjects(uint projectIndex) {
-    require(projects[msg.sender][projectIndex].validProject,'This Project does not exist');
+  modifier entrepeurWithProjects(uint projectIndex){
+    require(projectsStorage[projectIndex].validProject,'This Project does not exist');
     _;
+  }
+  // check if elements exists in array
+  function contains(
+    uint element,
+    uint[] memory arrayToSearch
+  ) private pure returns(bool success) {
+    for(uint i = 0; i<arrayToSearch.length; i++) {
+      if(arrayToSearch[i] == element)return true;
+    }
+    return false;
   }
   // adding a new project
   function addProject (
@@ -61,37 +71,36 @@ contract TrustMe {
     string memory message
   ){
     projects[msg.sender].push(
-      Project({
-        name: name,
-        description: description,
-        stakeToSell: stakeToSell,
-        availableStake: stakeToSell,
-        projectValuation: projectValuation,
-        finishCriteria: finishCriteria,
-        availableToInvest: true,
-        validProject: true
-      })
+      projectsStorage.push(
+        Project({
+          name: name,
+          description: description,
+          stakeToSell: stakeToSell,
+          availableStake: stakeToSell,
+          projectValuation: projectValuation,
+          finishCriteria: finishCriteria,
+          availableToInvest: true,
+          ownerAddress: msg.sender,
+          balance: 0,
+          validProject: true
+        })
+      )-1
     );
-    projectsBalances[msg.sender].push(0);
-    projectsIndexes.push(msg.sender);
     emit newProject(name, description, stakeToSell, projectValuation, finishCriteria);
     return("Successfully Added Project");
   }
   // get all projects count
   function getProjectsCount() public view returns (uint){
-    return projectsIndexes.length;
+    return projectsStorage.length;
   }
   // get all address projects count
-  function getAddressProjectsCount (
-    uint projectIndex
-  ) public view returns (
+  function getAddressProjectsCount () public view returns (
     uint addressProjectsLength
   ) {
-    return projects[projectsIndexes[projectIndex]].length;
+    return projects[msg.sender].length;
   }
   // get specific project
   function getProject (
-    uint projectAddressIndex,
     uint projectIndex
   ) public view returns (
     string memory name,
@@ -99,42 +108,43 @@ contract TrustMe {
     uint stakeToSell,
     uint availableStake,
     uint projectValuation,
-    uint finishCriteria
+    uint finishCriteria,
+    uint projectBalance
   ) {
+    Project memory projectToReturn = projectsStorage[projectIndex];
     return (
-      projects[projectsIndexes[projectAddressIndex]][projectIndex].name,
-      projects[projectsIndexes[projectAddressIndex]][projectIndex].description,
-      projects[projectsIndexes[projectAddressIndex]][projectIndex].stakeToSell,
-      projects[projectsIndexes[projectAddressIndex]][projectIndex].availableStake,
-      projects[projectsIndexes[projectAddressIndex]][projectIndex].projectValuation,
-      projects[projectsIndexes[projectAddressIndex]][projectIndex].finishCriteria
+      projectToReturn.name,
+      projectToReturn.description,
+      projectToReturn.stakeToSell,
+      projectToReturn.availableStake,
+      projectToReturn.projectValuation,
+      projectToReturn.finishCriteria,
+      projectToReturn.balance
     );
   }
   // get project balance
   function getProjectBalance(
     uint projectIndex
   ) public entrepeurWithProjects(projectIndex) view returns (uint balance) {
-    return projectsBalances[msg.sender][projectIndex];
+    return projectsStorage[projectIndex].balance;
   }
   // invest in project
   function investInProject(
-    uint projectAddressIndex,
     uint projectIndex,
     uint projectStakeVal
-  ) public onlyInvestor(projectAddressIndex) availableToBuy(projectAddressIndex,projectIndex) payable returns (string memory message) {
-    projects[projectsIndexes[projectAddressIndex]][projectIndex].availableStake -= projectStakeVal;
-    projectsBalances[projectsIndexes[projectAddressIndex]][projectIndex] += msg.value;
-    emit investment(msg.sender, projects[projectsIndexes[projectAddressIndex]][projectIndex].name, msg.value, projectStakeVal);
-    return string(abi.encodePacked('You successfully invest in project: ',projects[projectsIndexes[projectAddressIndex]][projectIndex].name));
+  ) public onlyInvestor(projectIndex) availableToBuy(projectIndex) payable {
+    projectsStorage[projectIndex].availableStake -= projectStakeVal;
+    projectsStorage[projectIndex].balance += msg.value;
+    emit investment(msg.sender, projectsStorage[projectIndex].name, msg.value, projectStakeVal);
   }
   // stop project investment round
   function stopProjectInvestmentRound(
     uint projectIndex
   ) public entrepeurWithProjects(projectIndex) returns (string memory message, bool success) {
-    Project memory projectToPause = projects[msg.sender][projectIndex];
-    if (projectsBalances[msg.sender][projectIndex] >= ((projectToPause.stakeToSell * projectToPause.finishCriteria) / 100)) {
-      if (projects[msg.sender][projectIndex].availableToInvest) {
-        projects[msg.sender][projectIndex].availableToInvest = false;
+    Project memory projectToPause = projectsStorage[projectIndex];
+    if (projectToPause.balance >= ((projectToPause.stakeToSell * projectToPause.finishCriteria) / 100)) {
+      if (projectsStorage[projectIndex].availableToInvest) {
+        projectsStorage[projectIndex].availableToInvest = false;
         return ('Project successfully Stopped', true);
       } else {
         return ('Project already Stopped', false);
@@ -146,10 +156,10 @@ contract TrustMe {
   // withdraw project balance
   function withdrawProjectBalance(
     uint projectIndex
-  ) public withFounds(projectIndex) payable returns(string memory messsage){
-    msg.sender.transfer(projectsBalances[msg.sender][projectIndex]);
-    emit projectWithdraw(projects[msg.sender][projectIndex].name, projectsBalances[msg.sender][projectIndex]);
-    projectsBalances[msg.sender][projectIndex] = 0;
-    return ('Successfully withdraw your balance for this project');
+  ) public withFounds(projectIndex) payable{
+    Project memory projectToWithdraw = projectsStorage[projectIndex];
+    projectToWithdraw.ownerAddress.transfer(projectToWithdraw.balance);
+    emit projectWithdraw(projectToWithdraw.name, projectToWithdraw.balance);
+    projectToWithdraw.balance = 0;
   }
 }

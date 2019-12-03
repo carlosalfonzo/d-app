@@ -1,4 +1,4 @@
-import { WEB3_CONNECT, WEB3_CONNECT_ERROR } from './web3Actions';
+import { WEB3_CONNECT, CHANGE_ACCOUNT } from './web3Actions';
 import { actions_suffix } from '../globals/configs';
 const {
   START,
@@ -16,6 +16,11 @@ const initialState = {
 
 export default function web3Reducer(state = initialState, action) {
   switch (action.type) {
+    case CHANGE_ACCOUNT:
+      return {
+        ...state,
+        accounts: action.accounts
+      }
     case WEB3_CONNECT + START:
       return {
         ...state,
@@ -34,12 +39,6 @@ export default function web3Reducer(state = initialState, action) {
         web3: true,
         accounts: action.payload.accounts,
         trustMeInstance: action.payload.trustMeContractInstance.methods
-      }
-    case WEB3_CONNECT_ERROR:
-      return {
-        ...state,
-        web3: false,
-        error: action.error
       }
     default:
       return state;

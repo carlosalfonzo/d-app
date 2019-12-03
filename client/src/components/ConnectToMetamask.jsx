@@ -1,7 +1,7 @@
 import React from 'react';
 import './css/ConnectToMetamask.css';
 import trustMe from '../assets/img/TrustMe.png';
-import metamask from '../assets/img/metamask.jpg';
+import metamask from '../assets/img/metamask.png';
 import Loader from './Loader';
 
 export default class ConnectToMetamask extends React.Component {

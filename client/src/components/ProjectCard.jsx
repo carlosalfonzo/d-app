@@ -24,7 +24,7 @@ export default class ProjectCard extends React.Component {
               <Link to={`/project/${projectIndex}`} className='project-imge-container full-width flex'>
                 <img src="https://picsum.photos/id/667/400/300" alt="foo" />
               </Link>
-              <div className='project-message-container full-width flex wrap thir-background'>
+              <div className='project-message-container full-width flex wrap third-background'>
                 <p className='title main-color bold full-width'>{project.name}</p>
                 <p className='five-color full-width overflow-ellipsis'>{project.description}</p>
                 <span className='attribute-container full-width flex'>
