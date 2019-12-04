@@ -1,0 +1,25 @@
+.input-title {
+    padding-bottom: 3px;
+}
+
+.single-input-container {
+    padding-bottom: 10px;
+}
+
+.number-input::placeholder,
+.textarea-input::placeholder,
+.text-input::placeholder {
+    font-size: .8em;
+}
+
+.textarea-input {
+    resize: none;
+}
+
+.number-input,
+.textarea-input,
+.text-input {
+    border: 1px solid #DDDDDD;
+    padding: 5px 10px;
+    border-radius: 5px;
+}

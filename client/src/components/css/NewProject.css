@@ -1,0 +1,39 @@
+.new-project-wrapper {
+    height: 80vh;
+}
+
+.half-width-input {
+    width: 45%;
+}
+
+.text-area textarea {
+    width: 100%;
+}
+
+.txt-error-message {
+    text-align: center;
+    padding: 5px 0;
+}
+
+.new-project-view-container {
+    border: 1px solid #DDDDDD;
+    padding: 30px;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 600px;
+}
+
+.button-wrapper {
+    justify-content: flex-end;
+}
+
+.new-project-view-container .title {
+    font-size: 1.5em;
+    padding-bottom: 10px;
+}
+
+@media(max-width:600px) {
+    .half-width-input {
+        width: 100%;
+    }
+}

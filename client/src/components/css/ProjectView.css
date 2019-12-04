@@ -2,8 +2,15 @@
     align-items: flex-start;
 }
 
+.header-image img {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+
 .header-image {
-    height: 300px;
+    position: relative;
+    padding-bottom: 300px;
 }
 
 .project-content-container {
@@ -71,6 +78,7 @@
 .goal-section .goal .val {
     font-size: 2em;
     line-height: 1;
+    white-space: nowrap;
 }
 
 .company-info-container {
@@ -136,6 +144,9 @@
 }
 
 @media(max-width:600px) {
+    .header-image {
+        padding-bottom: 200px;
+    }
     .project-information-content {
         width: 100%;
         padding-bottom: 20px;

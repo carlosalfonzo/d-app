@@ -4,13 +4,13 @@ import { getProgressBarPercentaje } from '../globals/utils';
 
 export default class RaisedProgressBar extends React.Component {
   render() {
-    const { valuation, criteria, balance } = this.props;
+    const { valuation, criteria, balance, stake, className = '' } = this.props;
     return (
-      <span className='founding-bar-container full-width'>
-        <div className='progressbar-content main-background'
-          style={{
-            width: getProgressBarPercentaje(valuation, criteria, balance)
-          }}
+      <span className={`founding-bar-container full-width ${className}`}>
+        <div style={{
+          width: getProgressBarPercentaje(valuation, criteria, balance, stake)
+        }}
+          className='progressbar-content main-background'
         />
       </span>
     )

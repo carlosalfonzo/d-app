@@ -15,7 +15,7 @@ export const NewProjectInputs = [
   },
   {
     title: 'Company Value',
-    name: 'companyValue',
+    name: 'projectValuation',
     placeholder: '1 ether',
     className: 'half-width-input',
     rule: 'number',
@@ -36,6 +36,24 @@ export const NewProjectInputs = [
     placeholder: '100%',
     rule: 'percentage',
     type: 'text'
-  }
+  },
+  {
+    title: 'Header Image',
+    name: 'headerHash',
+    className: 'full-width',
+    placeholder: '',
+    type: 'file',
+    multiple: false
+  },
+  // {
+  //   title: 'Images Gallery',
+  //   name: 'gallery',
+  //   className: 'full-width',
+  //   placeholder: '',
+  //   type: 'file',
+  //   multiple: true
+  // }
 ];
+export const inputNames = () => NewProjectInputs.map(({ name }) => name);
+
 export default NewProjectInputs;

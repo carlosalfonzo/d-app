@@ -1,13 +1,14 @@
-export function getProjectGoal(projectValuation, finishCriteria) {
+export function getProjectGoal(projectValuation, projectStakeToSell) {
   let projectval = parseInt(projectValuation);
-  let finishCrit = parseInt(finishCriteria) / 100;
-  let goal = Math.round(projectval * finishCrit);
-  return goal;
+  let stakeToSell = parseInt(projectStakeToSell) / 100;
+  let goal = Math.round(projectval * stakeToSell);
+  return `${toEther(goal)} Eth`;
 }
 
-export function getProgressBarPercentaje(projectValuation, finishCriteria, balance) {
-  let goal = getProjectGoal(projectValuation, finishCriteria);
-  let percentaje = Math.round(parseInt(balance) * 100 / goal);
+export function getProgressBarPercentaje(projectValuation, finishCriteria, balance, stakeToSell) {
+  let goal = getProjectGoal(projectValuation, stakeToSell);
+  goal = parseFloat(goal.replace(' Eth', ''));
+  let percentaje = parseFloat(toEther(balance)) * 100 / goal;
   return `${percentaje}%`;
 }
 // change the documuent title element
@@ -21,6 +22,10 @@ export function changeDocumentTitle(title, isHome = false) {
     document.title = `TrustMe ~ ${title}`;
   }
 }
+export function toWei(ether) {
+  return `${parseInt(ether) * 10 ** 18}`;
+}
 export function toEther(weiAmount) {
-  return parseInt(weiAmount) * 10 ** 18;
+  if (parseInt(weiAmount)) return `${parseInt(weiAmount) / 10 ** 18}`;
+  return weiAmount;
 }

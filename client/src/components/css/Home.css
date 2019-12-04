@@ -5,15 +5,25 @@
 .projects-list-container .project-card {
     border-radius: 15px;
     overflow: hidden;
-    width: 32%;
+    width: 24%;
     border: 1px solid #DDDDDD;
     margin-right: 1%;
     margin-bottom: 1%;
 }
 
+.project-image-container img {
+    position: absolute;
+    height: 100%;
+}
+
+.project-image-container {
+    position: relative;
+    padding-bottom: 100%;
+}
+
 .project-card .see-more {
     text-align: right;
-    width: 50%;
+    width: 40%;
 }
 
 .projects-list-container .project-card .title {
@@ -31,11 +41,17 @@
 }
 
 .projects-list-container .project-message-container .attribute-container.stake {
-    width: 50%;
+    width: 60%;
 }
 
 .projects-list-container .project-message-container .attribute-container .label {
     padding-right: 5px;
+}
+
+@media(max-width:900px) {
+    .projects-list-container .project-card {
+        width: 32%;
+    }
 }
 
 @media(max-width:850px) {
@@ -45,7 +61,12 @@
 }
 
 @media(max-width:650px) {
+    .projects-list-container {
+        padding: 20px 0;
+    }
     .projects-list-container .project-card {
         width: 100%;
+        margin-right: 0;
+        margin-bottom: 5%;
     }
 }

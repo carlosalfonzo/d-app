@@ -2,7 +2,9 @@ import React, { Component, Fragment } from 'react';
 import getWeb3 from "../getWeb3";
 import TrustMe from "../contracts/TrustMe.json";
 import ConnectToMetamaskView from './ConnectToMetamask';
+import { toWei } from '../globals/utils';
 import Header from './Header';
+import { create } from 'ipfs';
 
 let push = null;
 export const pushHistory = (route, state) => {
@@ -28,7 +30,7 @@ export default class Root extends Component {
         `My project ${i}`,
         'my project description',
         10,
-        1000,
+        toWei(10),
         50
       ).send({
         from: accounts[0]
@@ -47,7 +49,8 @@ export default class Root extends Component {
         deployedNetwork && deployedNetwork.address
       );
       window.ethereum.on('accountsChanged', this.props.changeAccount);
-      // await this.createProjects(2, trustMeContractInstance, accounts);
+      window.ipfsNode = await create(); //ipfs node instance in window
+      // this.createProjects(2, trustMeContractInstance, accounts);
       return { accounts, trustMeContractInstance };
     } catch (error) {
       return error;

@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import ProjectView from '../components/ProjectView';
-import { getProject } from '../redux/projectsActions';
+import { getProject, withDraw, clearReducer } from '../redux/projectsActions';
 
 export default withRouter(
   connect(
@@ -11,10 +11,15 @@ export default withRouter(
         address: state.web3Reducer.accounts[0],
         project: state.projectsReducer.projects[id],
         loading: state.projectsReducer.projectsLoader[id] !== undefined ? state.projectsReducer.projectsLoader[id] : true,
+        loadingTxt: state.projectsReducer.loading,
+        success: state.projectsReducer.success,
+        error: state.projectsReducer.error
       }
     },
     {
-      getProject
+      getProject,
+      withDraw,
+      clearReducer
     }
   )(ProjectView)
 )

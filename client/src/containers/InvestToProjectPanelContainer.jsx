@@ -10,6 +10,7 @@ export default withRouter(
         contract: state.web3Reducer.trustMeInstance,
         address: state.web3Reducer.accounts[0],
         project: state.projectsReducer.projects[projectIndex],
+        loading: state.projectsReducer.loading
       }
     },
     {

@@ -4,7 +4,6 @@
     top: 0;
     bottom: 0;
     border-radius: 30px;
-    animation: progress-bar-animation 2s;
 }
 
 .founding-bar-container {
@@ -14,13 +13,4 @@
     overflow: hidden;
     border: 1px solid #DDDDDD;
     position: relative;
-}
-
-@keyframes progress-bar-animation {
-    from {
-        width: 0;
-    }
-    to {
-        width: auto;
-    }
 }
