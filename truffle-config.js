@@ -9,15 +9,15 @@ module.exports = {
       host: "localhost",
       port: 8545,
       network_id: "*",
+    },
+    compilers: {
+      solc: {
+        settings: {
+          optimizer: {
+            enabled: true
+          }
+        }
+      }
     }
-    // compilers: {
-    //   solc: {
-    //     settings: {
-    //       optimizer: {
-    //         enabled: true
-    //       }
-    //     }
-    //   }
-    // }
   }
 };

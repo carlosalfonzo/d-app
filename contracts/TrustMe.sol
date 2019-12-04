@@ -9,6 +9,7 @@ contract TrustMe {
   struct Project {
     string name;
     string description;
+    string headerHash;
     uint stakeToSell;
     uint availableStake;
     uint projectValuation;
@@ -25,6 +26,14 @@ contract TrustMe {
     require(
       !contains(projectIndex,projects[msg.sender]),
       "The investor can't be the same person who published the project"
+    );
+    _;
+  }
+  // ask only for investor
+  modifier accomplishFinishCriteria(uint projectIndex) {
+    require(
+      projectsStorage[projectIndex].balance >= ((projectsStorage[projectIndex].stakeToSell * projectsStorage[projectIndex].finishCriteria) / 100),
+      "The project does not accomplish the finish criteria"
     );
     _;
   }
@@ -47,6 +56,7 @@ contract TrustMe {
   }
   // ask if msg address has project
   modifier entrepeurWithProjects(uint projectIndex){
+    require(contains(projectIndex,projects[msg.sender]),'This Project does not belongs to you!');
     require(projectsStorage[projectIndex].validProject,'This Project does not exist');
     _;
   }
@@ -66,25 +76,26 @@ contract TrustMe {
     string memory description,
     uint stakeToSell,
     uint projectValuation,
-    uint finishCriteria
+    uint finishCriteria,
+    string memory headerHash
   ) public returns(
     string memory message
   ){
-    projects[msg.sender].push(
-      projectsStorage.push(
-        Project({
-          name: name,
-          description: description,
-          stakeToSell: stakeToSell,
-          availableStake: stakeToSell,
-          projectValuation: projectValuation,
-          finishCriteria: finishCriteria,
-          availableToInvest: true,
-          ownerAddress: msg.sender,
-          balance: 0,
-          validProject: true
-        })
-      )-1
+    projects[msg.sender].push(projectsStorage.length);
+    projectsStorage.push(
+      Project({
+        name: name,
+        description: description,
+        stakeToSell: stakeToSell,
+        availableStake: stakeToSell,
+        projectValuation: projectValuation,
+        finishCriteria: finishCriteria,
+        headerHash: headerHash,
+        availableToInvest: true,
+        ownerAddress: msg.sender,
+        balance: 0,
+        validProject: true
+      })
     );
     emit newProject(name, description, stakeToSell, projectValuation, finishCriteria);
     return("Successfully Added Project");
@@ -94,39 +105,39 @@ contract TrustMe {
     return projectsStorage.length;
   }
   // get all address projects count
-  function getAddressProjectsCount () public view returns (
-    uint addressProjectsLength
+  function getAddressProjectsIndexes () public view returns (
+    uint[] memory
   ) {
-    return projects[msg.sender].length;
+    return projects[msg.sender];
   }
   // get specific project
   function getProject (
     uint projectIndex
   ) public view returns (
     string memory name,
+    string memory headerHash,
     string memory description,
     uint stakeToSell,
     uint availableStake,
     uint projectValuation,
     uint finishCriteria,
+    bool availableToInvest,
+    address owner,
     uint projectBalance
   ) {
     Project memory projectToReturn = projectsStorage[projectIndex];
     return (
       projectToReturn.name,
+      projectToReturn.headerHash,
       projectToReturn.description,
       projectToReturn.stakeToSell,
       projectToReturn.availableStake,
       projectToReturn.projectValuation,
       projectToReturn.finishCriteria,
+      projectToReturn.availableToInvest,
+      projectToReturn.ownerAddress,
       projectToReturn.balance
     );
-  }
-  // get project balance
-  function getProjectBalance(
-    uint projectIndex
-  ) public entrepeurWithProjects(projectIndex) view returns (uint balance) {
-    return projectsStorage[projectIndex].balance;
   }
   // invest in project
   function investInProject(
@@ -140,26 +151,24 @@ contract TrustMe {
   // stop project investment round
   function stopProjectInvestmentRound(
     uint projectIndex
-  ) public entrepeurWithProjects(projectIndex) returns (string memory message, bool success) {
-    Project memory projectToPause = projectsStorage[projectIndex];
-    if (projectToPause.balance >= ((projectToPause.stakeToSell * projectToPause.finishCriteria) / 100)) {
-      if (projectsStorage[projectIndex].availableToInvest) {
-        projectsStorage[projectIndex].availableToInvest = false;
-        return ('Project successfully Stopped', true);
-      } else {
-        return ('Project already Stopped', false);
-      }
+  ) public entrepeurWithProjects(projectIndex) accomplishFinishCriteria(projectIndex) returns (
+    string memory message,
+    bool success
+  ) {
+    if (projectsStorage[projectIndex].availableToInvest) {
+      projectsStorage[projectIndex].availableToInvest = false;
+      return ('Project successfully Stopped', true);
     } else {
-      return ('The project does not accomplish the finish criteria', false);
+      return ('Project already Stopped', false);
     }
   }
   // withdraw project balance
   function withdrawProjectBalance(
     uint projectIndex
-  ) public withFounds(projectIndex) payable{
+  ) public withFounds(projectIndex) accomplishFinishCriteria(projectIndex) entrepeurWithProjects(projectIndex) payable{
     Project memory projectToWithdraw = projectsStorage[projectIndex];
     projectToWithdraw.ownerAddress.transfer(projectToWithdraw.balance);
-    emit projectWithdraw(projectToWithdraw.name, projectToWithdraw.balance);
     projectToWithdraw.balance = 0;
+    emit projectWithdraw(projectToWithdraw.name, projectToWithdraw.balance);
   }
 }
