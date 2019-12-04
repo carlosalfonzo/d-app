@@ -88,7 +88,6 @@ export default class NewProject extends React.Component {
     if (Object.keys(this.inputValues).length < 6) {
       return this.triggerErrors();
     }
-    console.log('fgoo');
     const { postNewProject, contract, address } = this.props;
     postNewProject(this.inputValues, contract, address);
   }

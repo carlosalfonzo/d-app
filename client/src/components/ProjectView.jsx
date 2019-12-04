@@ -35,7 +35,13 @@ export default class ProjectView extends React.Component {
     changeDocumentTitle(name);
   }
 
-  componentDidUpdate({ project, success }) {
+  componentDidUpdate({ project, success, address }) {
+    if (!address && this.props.address) {
+      this.setState({
+        showInvestment: false,
+        successTxt: null
+      });
+    }
     if (!success && this.props.success) {
       this.setState({ successTxt: 'You successfully withdraw the project Balance' });
     }

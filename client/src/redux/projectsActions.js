@@ -19,12 +19,12 @@ export const getProjectsCount = (contract, accounts) => {
   }
 }
 export const stopProject = (contract, account, id) => {
-  console.log('foo', id);
   return {
     type: PAUSE,
     payload: contract.stopProjectInvestmentRound(id).call({
       from: account
-    })
+    }),
+    meta: id
   }
 }
 export const getMyProjectsCount = (contract, account) => {
