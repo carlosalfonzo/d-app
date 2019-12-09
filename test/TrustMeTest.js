@@ -41,4 +41,22 @@ contract("TrustMe", (accounts) => {
     trustMe.investInProject(0, 2, { from: accounts[1], value: 10 })
     truffleAssert.passes(trustMe.stopProjectInvestmentRound(0))
   })
+  it('throw stop project investment round with entrepeur with projects', async () => {
+    await trustMe.addProject('new project', 'foo', 1, 120, 10, '0x.' + '0'.repeat(64));
+    truffleAssert.fails(trustMe.stopProjectInvestmentRound(0, { from: accounts[1] }));
+    truffleAssert.fails(trustMe.stopProjectInvestmentRound(1));
+  })
+  it('throw stop project investment round with accomplish finish criteria', async () => {
+    await trustMe.addProject('new project', 'foo', 12, 120, 100, '0x.' + '0'.repeat(64));
+    truffleAssert.fails(trustMe.stopProjectInvestmentRound(0));
+  })
+  it('withdraw project balance', async () => {
+    await trustMe.addProject('new project', 'foo', 1, 120, 10, '0x.' + '0'.repeat(64));
+    trustMe.investInProject(0, 2, { from: accounts[1], value: 10 })
+    truffleAssert.passes(trustMe.withdrawProjectBalance(0))
+  })
+  it('throw withdraw project balance', async () => {
+    trustMe.addProject('new project', 'foo', 1, 120, 10, '0x.' + '0'.repeat(64));
+    truffleAssert.fails(trustMe.withdrawProjectBalance(0))
+  })
 })

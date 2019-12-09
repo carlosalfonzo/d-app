@@ -57,7 +57,7 @@ contract TrustMe {
   // ask if msg address has project
   modifier entrepeurWithProjects(uint projectIndex){
     require(contains(projectIndex,projects[msg.sender]),'This Project does not belongs to you!');
-    require(projectsStorage[projectIndex].validProject,'This Project does not exist');
+    // require(projectsStorage[projectIndex].validProject,'This Project does not exist');
     _;
   }
   // check if elements exists in array
